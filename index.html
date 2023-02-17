@@ -1,47 +1,45 @@
 <html>
-
-<head>
-
+  <head>
     <title>Pomodoro-Timer</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        * {
-            font-family: Roboto;
-        }
+      * {
+        font-family: Roboto;
+      }
 
-        body {
-            background-color: #00FF00;
-            color: #fff;
-        }
+      body {
+        background-color: #00ff00;
+        color: #fff;
+      }
 
-        h1,
-        h2 {
-            text-align: center;
-            font-weight: normal;
-        }
+      h1,
+      h2 {
+        text-align: center;
+        font-weight: normal;
+      }
 
-        h1 {
-            font-size: 128px;
-        }
+      h1 {
+        font-size: 128px;
+      }
 
-        h2 {
-            font-size: 48px;
-        }
+      h2 {
+        font-size: 48px;
+      }
 
-        #timer {
-            font-weight: 900;
-        }
+      #timer {
+        font-weight: 900;
+      }
     </style>
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <h2><b>Currently:</b> <span id="currentInterval"></span></h2>
 
     <h1 id="timer"></h1>
@@ -49,109 +47,103 @@
     <h2><b>Next:</b> <span id="nextInterval"></span></h2>
 
     <script>
-        let intervals = ['pomodoro', 'shortbreak', 'pomodoro', 'shortbreak', 'pomodoro', 'shortbreak', 'pomodoro', 'longbreak']
-        let i = -1;
-        let timer = 0;
+      let intervals = [
+        "pomodoro",
+        "shortbreak",
+        "pomodoro",
+        "shortbreak",
+        "pomodoro",
+        "shortbreak",
+        "pomodoro",
+        "longbreak",
+      ];
+      let i = -1;
+      let timer = 0;
 
-        display = document.querySelector('#timer');
+      display = document.querySelector("#timer");
 
-        intervals.forEach(interval => {
-            if (interval == 'pomodoro') {
-
-            }
-            else if (interval == 'shortbreak') {
-
-            }
-            else if (interval == 'longbreak') {
-
-            }
-        });
-
-        //SEKUNDEN-INTERVALL
-        //tickt zeit runter
-        //nimmt sich aktuelles intervall basierend auf i
-        //wenn zeit auf 0, dann i++
-        //nächstes intervall beginnt mit timerwert basierend auf intervall (pomdoro = 25 * 60, shortbreak = 5 * 60, longbreak = 15 * 60)
-
-        setInterval(function () {
-            document.getElementById('currentInterval').innerText = getCurrentIntervalName(i)
-            document.getElementById('nextInterval').innerText = getNextIntervalName(i)
-
-            minutes = parseInt(timer / 60, 10)
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            timer--;
-
-            if (timer < 0) {
-                i++;
-                initializeTimer()
-                var audio = new Audio('https://philipthomasme.github.io/bell.ogg');
-                audio.play();
-            }
-            if (i >= intervals.length) {
-                i = -1;
-            }
-        }, 1000)
-
-        function initializeTimer() {
-            timer = getDuration(i)
+      intervals.forEach((interval) => {
+        if (interval == "pomodoro") {
+        } else if (interval == "shortbreak") {
+        } else if (interval == "longbreak") {
         }
+      });
 
-        function getCurrentIntervalName(i) {
-            let currentInterval = intervals[i];
-            if (currentInterval == 'pomodoro') {
-                return 'Time to focus!'
-            }
-            else if (currentInterval == 'shortbreak') {
-                return 'Short break'
-            }
-            else if (currentInterval == 'longbreak') {
-                return 'Long break'
-            }
-            else {
-                return 'Restart'
-            }
+      //SEKUNDEN-INTERVALL
+      //tickt zeit runter
+      //nimmt sich aktuelles intervall basierend auf i
+      //wenn zeit auf 0, dann i++
+      //nächstes intervall beginnt mit timerwert basierend auf intervall (pomdoro = 25 * 60, shortbreak = 5 * 60, longbreak = 15 * 60)
+
+      setInterval(function () {
+        document.getElementById("currentInterval").innerText =
+          getCurrentIntervalName(i);
+        document.getElementById("nextInterval").innerText =
+          getNextIntervalName(i);
+
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        timer--;
+
+        if (timer < 0) {
+          i++;
+          initializeTimer();
+          var audio = new Audio("https://philipthomasme.github.io/bell.ogg");
+          audio.play();
         }
-
-        function getNextIntervalName(i) {
-            let nextInterval = intervals[i + 1];
-            if (nextInterval == 'pomodoro') {
-                return 'Time to focus!'
-            }
-            else if (nextInterval == 'shortbreak') {
-                return 'Short break'
-            }
-            else if (nextInterval == 'longbreak') {
-                return 'Long break'
-            }
-            else {
-                return 'Restart'
-            }
+        if (i >= intervals.length) {
+          i = -1;
         }
+      }, 1000);
 
-        function getDuration(i) {
-            let currentInterval = intervals[i];
-            if (currentInterval == 'pomodoro') {
-                return 25 * 60;
-            }
-            else if (currentInterval == 'shortbreak') {
-                return 5 * 60;
-            }
-            else if (currentInterval == 'longbreak') {
-                return 15 * 60;
-            }
-            else {
-                return 0;
-            }
+      function initializeTimer() {
+        timer = getDuration(i);
+      }
+
+      function getCurrentIntervalName(i) {
+        let currentInterval = intervals[i];
+        if (currentInterval == "pomodoro") {
+          return "Time to focus! (25 min)";
+        } else if (currentInterval == "shortbreak") {
+          return "Short break (5 min)";
+        } else if (currentInterval == "longbreak") {
+          return "Long break (15 min)";
+        } else {
+          return "Restart";
         }
+      }
 
+      function getNextIntervalName(i) {
+        let nextInterval = intervals[i + 1];
+        if (nextInterval == "pomodoro") {
+          return "Time to focus! (25 min)";
+        } else if (nextInterval == "shortbreak") {
+          return "Short break (5 min)";
+        } else if (nextInterval == "longbreak") {
+          return "Long break (15 min)";
+        } else {
+          return "Restart";
+        }
+      }
+
+      function getDuration(i) {
+        let currentInterval = intervals[i];
+        if (currentInterval == "pomodoro") {
+          return 25 * 60;
+        } else if (currentInterval == "shortbreak") {
+          return 5 * 60;
+        } else if (currentInterval == "longbreak") {
+          return 15 * 60;
+        } else {
+          return 0;
+        }
+      }
     </script>
-
-</body>
-
+  </body>
 </html>
