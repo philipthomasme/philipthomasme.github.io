@@ -137,13 +137,13 @@
         function getDuration(i) {
             let currentInterval = intervals[i];
             if (currentInterval == 'pomodoro') {
-                return 25 * 1;
+                return 25 * 60;
             }
             else if (currentInterval == 'shortbreak') {
-                return 5 * 1;
+                return 5 * 60;
             }
             else if (currentInterval == 'longbreak') {
-                return 15 * 1;
+                return 15 * 60;
             }
             else {
                 return 0;
